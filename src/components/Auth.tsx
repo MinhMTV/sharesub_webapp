@@ -28,7 +28,7 @@ export function Auth() {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: window.location.origin,
+        redirectTo: "https://app.thatsmyname.de",
       },
     });
     if (error) alert('Fehler beim Login: ' + error.message);
