@@ -37,12 +37,24 @@ export default function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [showAddDialog, setShowAddDialog] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [apiReady, setApiReady] = useState(false);
+  const [apiMissing, setApiMissing] = useState(false);
 
   useEffect(() => {
-    loadApiConfigFromSupabase();
-  }, []);
+  loadApiConfigFromSupabase().then((ok) => {
+    if (ok) {
+      setApiReady(true);
+      setApiMissing(false);
+    } else {
+      setApiMissing(true);
+    }
+  });
+}, []);
 
-  const {data: accountsData} = useQuery({queryKey: ['accounts'], queryFn: fetchAccounts});
+  const { data: accountsData, isLoading: accountsLoading } = useQuery({
+  queryKey: ['accounts'],
+  queryFn: fetchAccounts,
+});
   const accounts = Array.isArray(accountsData) ? accountsData : [];
   const {data: subscriptions = []} = useQuery({queryKey: ['subscriptions'], queryFn: fetchAllSubscriptions});
   const {data: subscribers = []} = useQuery({queryKey: ['subscribers'], queryFn: fetchAllSubscribers});
@@ -91,27 +103,41 @@ export default function App() {
   };
 
 
- return (
-  <div className="min-h-screen w-screen bg-gray-100 p-4 overflow-hidden relative">
-    <Toaster position="top-center" />
+  return (
+    <div className="min-h-screen w-screen bg-gray-100 p-4 overflow-hidden relative">
+      <Toaster position="top-center" />
 
-    {/* 💡 Settings-Button immer sichtbar */}
-    <div className="absolute top-4 right-4 z-10">
-      <button
-        onClick={() => navigate('/settings')}
-        className="h-[42px] aspect-square bg-gray-300 rounded-md flex items-center justify-center hover:bg-gray-400 transition"
-        title="Einstellungen"
-      >
-        <Settings className="w-5 h-5" />
-      </button>
-    </div>
-
-    {accounts.length === 0 ? (
-      <div className="absolute inset-0 flex items-center justify-center text-gray-500">
-        ⚠️ Noch keine Accounts geladen.
+      <div className="absolute top-4 right-4 z-10">
+        <button
+          onClick={() => navigate('/settings')}
+          className="h-[42px] aspect-square bg-gray-300 rounded-md flex items-center justify-center hover:bg-gray-400 transition"
+          title="Einstellungen"
+        >
+          <Settings className="w-5 h-5" />
+        </button>
       </div>
-    ) : (
-      <>
+
+      {!apiReady && apiMissing && (
+        <div className="absolute inset-0 flex items-center justify-center text-gray-500 text-center p-4">
+          🔑 API-Zugangsdaten fehlen.<br />
+          Bitte unter <b>Einstellungen</b> konfigurieren.
+        </div>
+      )}
+
+      {apiReady && accountsLoading && (
+        <div className="absolute inset-0 flex items-center justify-center text-gray-500 text-center p-4">
+          ⏳ Accounts werden geladen...
+        </div>
+      )}
+
+      {apiReady && !accountsLoading && accounts.length === 0 && (
+        <div className="absolute inset-0 flex items-center justify-center text-gray-500">
+          ⚠️ Keine Accountsjhkj vorhanden.
+        </div>
+      )}
+
+      {apiReady && accounts.length > 0 && (
+        <>
         {/* vorherige UI bleibt gleich */}
         <div className="mb-4 flex items-center gap-2 mt-12">
           <Input

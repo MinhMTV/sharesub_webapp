@@ -20,13 +20,13 @@ export function updateApiConfig(url: string, key: string) {
 }
 
 // Automatisch aus Supabase laden
-export async function loadApiConfigFromSupabase() {
+export async function loadApiConfigFromSupabase(): Promise<boolean> {
   try {
     const supabase = getSupabaseClient();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
       console.warn('🔑 Kein User gefunden – kann API-Konfiguration nicht laden.');
-      return;
+      return false;
     }
 
     const { data, error } = await supabase
@@ -37,14 +37,15 @@ export async function loadApiConfigFromSupabase() {
 
     if (error || !data?.api_url || !data?.api_key) {
       console.warn('⚠️ API-Konfiguration fehlt in Supabase oder konnte nicht geladen werden.');
-      return;
+      return false;
     }
 
     updateApiConfig(data.api_url, data.api_key);
     console.info('✅ API-Konfiguration erfolgreich geladen.');
+    return true;
+
   } catch (e) {
     console.error('❌ Fehler beim Laden der API-Konfiguration aus Supabase:', e);
+    return false;
   }
 }
-
-export { api };
