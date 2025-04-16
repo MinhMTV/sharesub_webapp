@@ -49,3 +49,4 @@ export async function loadApiConfigFromSupabase(): Promise<boolean> {
     return false;
   }
 }
+export { api };
