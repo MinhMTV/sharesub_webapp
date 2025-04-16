@@ -25,6 +25,7 @@ import { useSendMessage } from '@/hooks/useSendMessage';
 import {Minus, Plus} from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 import { Settings } from 'lucide-react';
+import { loadApiConfigFromSupabase } from './repository/api';
 
 export default function App() {
   const isMobile = useMediaQuery({maxWidth: 1023});
@@ -36,6 +37,10 @@ export default function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [showAddDialog, setShowAddDialog] = useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+
+  useEffect(() => {
+    loadApiConfigFromSupabase();
+  }, []);
 
   const {data: accountsData} = useQuery({queryKey: ['accounts'], queryFn: fetchAccounts});
   const accounts = Array.isArray(accountsData) ? accountsData : [];
