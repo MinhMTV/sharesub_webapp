@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  webapp:
+    build: .
+    container_name: sharesub_webapp
+    ports:
+      - "8081:80"  # Lokaler Port:Containerport (für NGINX Proxy Manager)
+    restart: unless-stopped
