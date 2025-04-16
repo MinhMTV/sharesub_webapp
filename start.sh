@@ -3,13 +3,13 @@
 REPO_URL="https://github.com/MinhMTV/sharesub_webapp.git"
 FOLDER="sharesub_webapp"
 
-# Wenn Ordner existiert, aber KEIN gültiges Git-Repo → löschen
+# Ordner ohne .git = löschen
 if [ -d "$FOLDER" ] && [ ! -d "$FOLDER/.git" ]; then
   echo "⚠️ Ordner existiert ohne Git – wird gelöscht..."
   rm -rf "$FOLDER"
 fi
 
-# Wenn Repo bereits vorhanden, nur pullen
+# Pull oder Clone
 if [ -d "$FOLDER/.git" ]; then
   echo "🔄 Pulling latest changes..."
   cd "$FOLDER" && git pull
@@ -25,5 +25,5 @@ npm install || { echo "❌ npm install fehlgeschlagen!"; exit 1; }
 echo "⚙️ Building webapp..."
 npm run build || { echo "❌ Build fehlgeschlagen!"; exit 1; }
 
-echo "✅ Build erfolgreich. Bereit für Deployment via NGINX-Volume (/app/sharesub_webapp/dist)"
-tail -f /dev/null
+echo "🚀 Starte Webserver auf Port 80..."
+npx serve -s dist -l 80

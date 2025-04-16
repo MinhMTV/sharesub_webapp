@@ -2,10 +2,11 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Git und Abhängigkeiten
+# Git und Serve installieren
 RUN apk add --no-cache git
+RUN npm install -g serve
 
-# Start-Skript kopieren
+# Startskript kopieren
 COPY start.sh /app/start.sh
 RUN chmod +x /app/start.sh
 
