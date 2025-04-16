@@ -22,10 +22,12 @@ import { fetchAllSubscriptions, Subscription } from '@/repository/subscriptions'
 import { fetchAllSubscribers, Subscriber } from '@/repository/subscribers';
 import { useMessages } from '@/hooks/useMessages';
 import { useSendMessage } from '@/hooks/useSendMessage';
-import {Minus, Plus} from "lucide-react";
+import {Minus, Plus, Terminal} from "lucide-react";
 import { useNavigate } from 'react-router-dom';
 import { Settings } from 'lucide-react';
 import { loadApiConfigFromSupabase } from './repository/api';
+import {CommandDialog} from "@/components/ui/CommandDialog.tsx";
+
 
 export default function App() {
   const isMobile = useMediaQuery({maxWidth: 1023});
@@ -39,6 +41,7 @@ export default function App() {
   const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [apiReady, setApiReady] = useState(false);
   const [apiMissing, setApiMissing] = useState(false);
+  const [showCommandDialog, setShowCommandDialog] = useState(false);
 
   useEffect(() => {
   loadApiConfigFromSupabase().then((ok) => {
@@ -115,6 +118,15 @@ export default function App() {
           title="Einstellungen"
         >
           <Settings className="w-5 h-5" />
+        </button>
+      </div>
+      <div className="absolute top-4 right-16 z-10">
+        <button
+          onClick={() => setShowCommandDialog(true)}
+          className="h-[42px] aspect-square bg-gray-300 rounded-md flex items-center justify-center hover:bg-gray-400 transition"
+          title="Befehle anzeigen"
+        >
+          <Terminal className="w-5 h-5" />
         </button>
       </div>
 
@@ -270,6 +282,7 @@ export default function App() {
               <DeleteAccountsDialog open={showDeleteDialog} onClose={() => setShowDeleteDialog(false)}/>
             </>
         )}
+      <CommandDialog open={showCommandDialog} onOpenChange={() => setShowCommandDialog(false)} />
       </div>
   );
 }

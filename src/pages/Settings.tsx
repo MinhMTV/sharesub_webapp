@@ -77,41 +77,50 @@ export default function SettingsPage() {
     window.location.href = '/';
   };
 
-  return (
-    <div className="p-4 space-y-4">
+ return (
+  <div className="min-h-screen w-screen flex items-center justify-center bg-gray-50 p-4">
+    <div className="w-full max-w-md space-y-6 bg-white p-6 rounded-lg shadow-md">
       {/* Zurück-Button */}
       <button
         onClick={() => navigate('/')}
-        className="flex items-center gap-2 text-sm text-gray-600 hover:text-black transition mb-2"
+        className="flex items-center gap-2 text-sm text-gray-600 hover:text-black transition"
       >
         <ArrowLeft className="w-4 h-4" />
         Zurück
       </button>
 
-      <h2 className="text-lg font-bold">🔧 Einstellungen</h2>
+      <h2 className="text-lg font-bold text-center">🔧 Einstellungen</h2>
 
-      <input
-        value={apiUrl}
-        onChange={(e) => setApiUrl(e.target.value)}
-        placeholder="FastAPI URL"
-        className="w-full border p-2"
-      />
-      <input
-        value={apiKey}
-        onChange={(e) => setApiKey(e.target.value)}
-        placeholder="API Key"
-        className="w-full border p-2"
-      />
+      <div className="flex flex-col items-center gap-4">
+        <input
+          value={apiUrl}
+          onChange={(e) => setApiUrl(e.target.value)}
+          placeholder="FastAPI URL"
+          className="w-[320px] border border-gray-300 rounded p-2"
+        />
+        <input
+          value={apiKey}
+          onChange={(e) => setApiKey(e.target.value)}
+          placeholder="API Key"
+          className="w-[320px] border border-gray-300 rounded p-2"
+        />
 
-      <button onClick={save} className="bg-green-500 text-white p-2 rounded">
-        Speichern
-      </button>
+        <button
+          onClick={save}
+          className="w-[320px] bg-green-500 text-white p-2 rounded hover:bg-green-600 transition"
+        >
+          Speichern
+        </button>
 
-      <hr className="my-4" />
+        <hr className="w-[320px] border-gray-200" />
 
-      <button onClick={logout} className="bg-red-500 text-white p-2 rounded">
-        Abmelden
-      </button>
+        <button
+          onClick={logout}
+          className="w-[320px] bg-red-500 text-white p-2 rounded hover:bg-red-600 transition"
+        >
+          Abmelden
+        </button>
+      </div>
     </div>
-  );
-}
+  </div>
+);}

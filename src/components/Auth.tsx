@@ -23,12 +23,17 @@ export function Auth() {
     window.location.reload(); // sicheres Neu-Initialisieren
   };
 
+  const redirectTo =
+  import.meta.env.MODE === 'development'
+    ? 'http://localhost:5173' // oder deine IP
+    : 'https://app.thatsmyname.de';
+
   const signInWithGoogle = async () => {
     const supabase = getSupabaseClient();
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: "http://app.thatsmyname.de",
+         redirectTo ,
       },
     });
     if (error) alert('Fehler beim Login: ' + error.message);
