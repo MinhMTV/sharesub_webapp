@@ -33,30 +33,30 @@ export function Auth() {
 
   if (!connected) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <div className="p-6 space-y-4 bg-white shadow-lg rounded-xl w-full max-w-sm text-center">
-          <h2 className="text-xl font-bold">🔌 Supabase Zugang</h2>
-          <input
-            name="username"
-            autoComplete="username"
-            placeholder="Supabase URL"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-            className="w-full border p-2"
-          />
-          <input
-            name="password"
-            autoComplete="current-password"
-            placeholder="Supabase Anon Key"
-            value={key}
-            onChange={(e) => setKey(e.target.value)}
-            className="w-full border p-2"
-          />
-          <button onClick={handleInit} className="w-full bg-green-600 text-white p-2 rounded">
-            Verbinden
-          </button>
+        <div className="h-screen w-screen flex items-center justify-center bg-gray-100">
+          <div className="p-6 space-y-4 bg-white shadow-lg rounded-xl w-full max-w-sm text-center">
+            <h2 className="text-xl font-bold">🔌 Supabase Zugang</h2>
+            <input
+                name="username"
+                autoComplete="username"
+                placeholder="Supabase URL"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                className="w-full border p-2"
+            />
+            <input
+                name="password"
+                autoComplete="current-password"
+                placeholder="Supabase Anon Key"
+                value={key}
+                onChange={(e) => setKey(e.target.value)}
+                className="w-full border p-2"
+            />
+            <button onClick={handleInit} className="w-full bg-green-600 text-white p-2 rounded">
+              Verbinden
+            </button>
+          </div>
         </div>
-      </div>
     );
   }
 
