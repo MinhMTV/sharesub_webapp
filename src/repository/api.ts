@@ -19,7 +19,6 @@ export function updateApiConfig(url: string, key: string) {
   localStorage.setItem('api_key', key);
 }
 
-// Automatisch aus Supabase laden
 export async function loadApiConfigFromSupabase(): Promise<boolean> {
   try {
     const supabase = getSupabaseClient();
@@ -43,7 +42,6 @@ export async function loadApiConfigFromSupabase(): Promise<boolean> {
     updateApiConfig(data.api_url, data.api_key);
     console.info('✅ API-Konfiguration erfolgreich geladen.');
     return true;
-
   } catch (e) {
     console.error('❌ Fehler beim Laden der API-Konfiguration aus Supabase:', e);
     return false;

@@ -54,10 +54,11 @@ export default function App() {
   const { data: accountsData, isLoading: accountsLoading } = useQuery({
   queryKey: ['accounts'],
   queryFn: fetchAccounts,
+    enabled: apiReady,
 });
   const accounts = Array.isArray(accountsData) ? accountsData : [];
-  const {data: subscriptions = []} = useQuery({queryKey: ['subscriptions'], queryFn: fetchAllSubscriptions});
-  const {data: subscribers = []} = useQuery({queryKey: ['subscribers'], queryFn: fetchAllSubscribers});
+  const {data: subscriptions = []} = useQuery({queryKey: ['subscriptions'], queryFn: fetchAllSubscriptions,enabled: apiReady,});
+  const {data: subscribers = []} = useQuery({queryKey: ['subscribers'], queryFn: fetchAllSubscribers,enabled: apiReady,});
 
   const {data: messages = [], isLoading: messagesLoading} = useMessages(activeSubscriber?.subscriber_id);
 
@@ -132,7 +133,7 @@ export default function App() {
 
       {apiReady && !accountsLoading && accounts.length === 0 && (
         <div className="absolute inset-0 flex items-center justify-center text-gray-500">
-          ⚠️ Keine Accountsjhkj vorhanden.
+          ⚠️ Keine Accounts vorhanden.
         </div>
       )}
 
