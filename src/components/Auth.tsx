@@ -27,6 +27,9 @@ export function Auth() {
     const supabase = getSupabaseClient();
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
+      options: {
+        redirectTo: window.location.origin,
+      },
     });
     if (error) alert('Fehler beim Login: ' + error.message);
   };
