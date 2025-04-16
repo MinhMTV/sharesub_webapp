@@ -13,7 +13,7 @@ export const useAddAccount = (options?: {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: AccountCreate) => api.post('/accounts', data),
+    mutationFn: (data: AccountCreate) => api.post('/accounts/', data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['accounts'] });
       options?.onSuccess?.();

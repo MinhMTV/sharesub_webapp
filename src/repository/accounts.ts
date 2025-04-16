@@ -9,6 +9,6 @@ export interface Account {
 }
 
 export async function fetchAccounts(): Promise<Account[]> {
-  const res = await api.get('/accounts');
+  const res = await api.get('/accounts/');
   return res.data;
 }

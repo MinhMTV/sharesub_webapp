@@ -18,7 +18,7 @@ export interface ChatMessage {
 }
 
 export async function fetchAllSubscribers(): Promise<Subscriber[]> {
-  const res = await api.get('/subscribers');
+  const res = await api.get('/subscribers/');
   return res.data;
 }
 

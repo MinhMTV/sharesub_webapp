@@ -16,7 +16,7 @@ export interface Subscription {
 }
 
 export async function fetchAllSubscriptions(): Promise<Subscription[]> {
-  const response = await api.get('/subscriptions');
+  const response = await api.get('/subscriptions/');
   return response.data;
 }
 
