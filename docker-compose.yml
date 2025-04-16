@@ -7,9 +7,9 @@ services:
     ports:
       - "8081:80"
     networks:
-      - wp-net  # <<< damit NGINX Proxy Manager dich sieht
+      - wp_net  # <<< damit NGINX Proxy Manager dich sieht
     restart: unless-stopped
 
 networks:
-  wp-net:
+  wp_net:
     external: true  # <<< wichtig: das Netzwerk existiert bereits (z. B. von deinem WordPress-Stack)
