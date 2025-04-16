@@ -86,32 +86,37 @@ export default function App() {
   };
 
 
-  return (
-      <div className="min-h-screen w-screen bg-gray-100 p-4 overflow-hidden relative">
-        <Toaster position="top-center"/>
+ return (
+  <div className="min-h-screen w-screen bg-gray-100 p-4 overflow-hidden relative">
+    <Toaster position="top-center" />
 
-        {accounts.length === 0 ? (
-            <div className="absolute inset-0 flex items-center justify-center text-gray-500">
-              ⚠️ Noch keine Accounts geladen.
-            </div>
-        ) : (
-            <>
-              <div className="mb-4 flex items-center gap-2">
-                <Input
-                    type="text"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    placeholder="🔎 Suche nach Subscriber ID, Subscription ID oder Name"
-                    className="flex-grow"
-                />
-                <button
-                    onClick={() => navigate('/settings')}
-                    className="h-[42px] aspect-square bg-gray-300 rounded-md flex items-center justify-center hover:bg-gray-400 transition"
-                    title="Einstellungen"
-                >
-                  <Settings className="w-5 h-5"/>
-                </button>
-              </div>
+    {/* 💡 Settings-Button immer sichtbar */}
+    <div className="absolute top-4 right-4 z-10">
+      <button
+        onClick={() => navigate('/settings')}
+        className="h-[42px] aspect-square bg-gray-300 rounded-md flex items-center justify-center hover:bg-gray-400 transition"
+        title="Einstellungen"
+      >
+        <Settings className="w-5 h-5" />
+      </button>
+    </div>
+
+    {accounts.length === 0 ? (
+      <div className="absolute inset-0 flex items-center justify-center text-gray-500">
+        ⚠️ Noch keine Accounts geladen.
+      </div>
+    ) : (
+      <>
+        {/* vorherige UI bleibt gleich */}
+        <div className="mb-4 flex items-center gap-2 mt-12">
+          <Input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="🔎 Suche nach Subscriber ID, Subscription ID oder Name"
+            className="flex-grow"
+          />
+        </div>
 
               {isMobile ? (
                   <div className="flex flex-col gap-4">
