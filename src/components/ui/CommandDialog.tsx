@@ -81,12 +81,11 @@ export function CommandDialog({ open, onOpenChange }: { open: boolean; onOpenCha
     }
   };
 
-    const handleLastReply = async () => {
+   const handleLastReply = async () => {
     try {
-      setLogDialogTitle('📄 Last Reply');
-      setLogDialogOpen(true);
+      setLastReplyOpen(true); // ✅ Richtig
     } catch (e) {
-      toast.error(`❌ Fehler beim Laden der Logs ${e}`);
+      toast.error(`❌ Fehler beim Öffnen der Last Replies ${e}`);
     }
   };
 

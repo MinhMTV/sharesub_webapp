@@ -12,7 +12,7 @@ export function LastReplyDialog({ open, onClose }: { open: boolean; onClose: () 
   const fetchReplies = async () => {
     setLoading(true);
     try {
-      const { data } = await api.get(`/reminder/last_reply?days=${days}`);
+      const { data } = await api.get(`/chats/last_reply?days=${days}`);
       if (data?.error) {
         toast.error(data.error);
       } else {

@@ -26,7 +26,7 @@ export default defineConfig({
         description: 'Verwalte deine Abos, Nachrichten und Accounts',
         theme_color: '#ffffff',
         background_color: '#f4f4f5',
-        display: 'standalone',
+        display: 'fullscreen',
         start_url: '/',
         icons: [
           {
