@@ -4,13 +4,15 @@ import { api } from '@/repository/api.ts';
 import { useState } from 'react';
 import { LogViewerDialog } from '@/components/ui/LogViewDialog.tsx';
 import { LastReplyDialog } from '@/components/ui/LastReplyDialog.tsx';
+import { AddLoginDialog } from '@/components/ui/AddLoginDialog';
 
 export function CommandDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
   const [logDialogOpen, setLogDialogOpen] = useState(false);
   const [logDialogTitle, setLogDialogTitle] = useState('');
   const [logDialogContent, setLogDialogContent] = useState('');
-
+  const [addLoginOpen, setAddLoginOpen] = useState(false);
   const [lastReplyOpen, setLastReplyOpen] = useState(false);
+
 
   const handleScrapeAll = async () => {
     try {
@@ -89,9 +91,9 @@ export function CommandDialog({ open, onOpenChange }: { open: boolean; onOpenCha
     }
   };
 
-  const handleAddLogin = async () => {
-    toast('🔐 Login-Hinzufügen-Dialog folgt...');
-  };
+    const handleAddLogin = async () => {
+        setAddLoginOpen(true);
+      };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -158,6 +160,8 @@ export function CommandDialog({ open, onOpenChange }: { open: boolean; onOpenCha
             </div>
           </div>
         </div>
+
+        <AddLoginDialog open={addLoginOpen} onOpenChange={setAddLoginOpen} />
 
         <LogViewerDialog
           open={logDialogOpen}
