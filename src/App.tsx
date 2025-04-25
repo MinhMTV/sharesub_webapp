@@ -282,7 +282,9 @@ export default function App() {
               <DeleteAccountsDialog open={showDeleteDialog} onClose={() => setShowDeleteDialog(false)}/>
             </>
         )}
-      <CommandDialog open={showCommandDialog} onOpenChange={() => setShowCommandDialog(false)} />
+      {apiReady && (
+  <CommandDialog open={showCommandDialog} onOpenChange={() => setShowCommandDialog(false)} />
+)}
       </div>
   );
 }

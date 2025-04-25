@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { LogViewerDialog } from '@/components/ui/LogViewDialog.tsx';
 import { LastReplyDialog } from '@/components/ui/LastReplyDialog.tsx';
 import { AddLoginDialog } from '@/components/ui/AddLoginDialog';
+import {CostDialog} from "@/components/ui/costDialog.tsx";
+import {AddCostsDialog} from "@/components/ui/addCostDialog.tsx";
 
 export function CommandDialog({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
   const [logDialogOpen, setLogDialogOpen] = useState(false);
@@ -12,6 +14,8 @@ export function CommandDialog({ open, onOpenChange }: { open: boolean; onOpenCha
   const [logDialogContent, setLogDialogContent] = useState('');
   const [addLoginOpen, setAddLoginOpen] = useState(false);
   const [lastReplyOpen, setLastReplyOpen] = useState(false);
+  const [costDialogOpen, setCostDialogOpen] = useState(false);
+  const [addCostDialogOpen, setAddCostDialogOpen] = useState(false);
 
 
   const handleScrapeAll = async () => {
@@ -97,7 +101,7 @@ export function CommandDialog({ open, onOpenChange }: { open: boolean; onOpenCha
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-lg space-y-6">
+      <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto space-y-6">
         <DialogHeader>
           <DialogTitle>📖 Befehlsübersicht</DialogTitle>
         </DialogHeader>
@@ -161,6 +165,19 @@ export function CommandDialog({ open, onOpenChange }: { open: boolean; onOpenCha
           </div>
         </div>
 
+
+        <div>
+          <p className="font-semibold mb-2">💸 Kostenverwaltung</p>
+          <div className="flex flex-col gap-2">
+            <button onClick={() => setCostDialogOpen(true)} className="w-full p-2 rounded bg-cyan-500 text-white hover:bg-cyan-600">
+              📋 Kosten anzeigen
+            </button>
+            <button onClick={() => setAddCostDialogOpen(true)} className="w-full p-2 rounded bg-teal-500 text-white hover:bg-teal-600">
+              ➕ Kosten hinzufügen
+            </button>
+          </div>
+        </div>
+
         <AddLoginDialog open={addLoginOpen} onOpenChange={setAddLoginOpen} />
 
         <LogViewerDialog
@@ -175,6 +192,9 @@ export function CommandDialog({ open, onOpenChange }: { open: boolean; onOpenCha
           onClose={() => setLastReplyOpen(false)}
         />
       </DialogContent>
+      <CostDialog open={costDialogOpen} onClose={() => setCostDialogOpen(false)} />
+      <AddCostsDialog open={addCostDialogOpen} onClose={() => setAddCostDialogOpen(false)} />
     </Dialog>
+
   );
 }

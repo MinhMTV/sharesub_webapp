@@ -113,9 +113,13 @@ export function AddLoginDialog({ open, onOpenChange }: AddLoginDialogProps) {
               </SelectTrigger>
               <SelectContent>
                 {available.map((item) => (
-                  <SelectItem key={item.subscription_id} value={item.subscription_id}>
-                    {item.subscription_name} ({item.subscription_id}) – {item.account_email}
-                  </SelectItem>
+                  <SelectItem
+                      key={item.subscription_id}
+                      value={item.subscription_id}
+                      className="hover:bg-blue-500 hover:text-white cursor-pointer"
+                    >
+                      {item.subscription_name} ({item.subscription_id}) – {item.account_email}
+                    </SelectItem>
                 ))}
               </SelectContent>
             </Select>
