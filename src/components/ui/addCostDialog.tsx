@@ -26,15 +26,28 @@ export function AddCostsDialog({ open, onClose }: { open: boolean; onClose: () =
     },
   });
 
-  const handleSubmit = () => {
-    const monthly_cost = parseFloat(value);
-    if (!selected || isNaN(monthly_cost)) return;
+const handleSubmit = () => {
+  const monthly_cost = parseFloat(value);
 
-    const subscription_name = selected === '__custom__' ? customName : selected;
+  if (!selected) {
+    toast.error('❌ Bitte ein Abo auswählen');
+    return;
+  }
 
-    if (!subscription_name) return;
-    addCost.mutate({ subscription_name, monthly_cost });
-  };
+  if (isNaN(monthly_cost)) {
+    toast.error('❌ Bitte eine gültige Zahl für die Kosten eingeben');
+    return;
+  }
+
+  const subscription_name = selected === '__custom__' ? customName : selected;
+
+  if (!subscription_name || (selected === '__custom__' && !customName)) {
+    toast.error('❌ Bitte einen Namen für das Abo eingeben');
+    return;
+  }
+
+  addCost.mutate({ subscription_name, monthly_cost });
+};
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
