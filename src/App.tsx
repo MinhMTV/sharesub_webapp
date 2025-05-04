@@ -131,15 +131,15 @@ export default function App() {
           <Terminal className="w-5 h-5" />
         </button>
       </div>
-            <div className="absolute top-4 right-28 z-10">
-        <button
-          onClick={() => setShowDigishareDialog(true)}
-          className="h-[42px] aspect-square bg-blue-300 rounded-md flex items-center justify-center hover:bg-blue-400 transition"
-          title="Digishare Aktionen"
-        >
-          <img src="/digishare.png" alt="D" className="w-5 h-5" />
-        </button>
-      </div>
+<div className="absolute top-4 right-28 z-10">
+  <button
+    onClick={() => setShowDigishareDialog(true)}
+    className="h-[42px] w-[42px] bg-gray-300 rounded-md flex items-center justify-center hover:bg-gray-400 transition"
+    title="Digishare Aktionen"
+  >
+    <span className="text-black text-base leading-none align-middle">D</span>
+  </button>
+</div>
 
       {!apiReady && apiMissing && (
         <div className="absolute inset-0 flex items-center justify-center text-gray-500 text-center p-4">
