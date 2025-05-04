@@ -16,6 +16,7 @@ import { SubscriptionSelector } from './components/selectors/SubscriptionSelecto
 import { SubscriberSelector } from './components/selectors/SubscriberSelector';
 import { AddAccountDialog } from '@/components/ui/AddAccountDialog';
 import { DeleteAccountsDialog } from '@/components/ui/DeleteAccountDialog';
+import { DigishareDialog } from '@/components/ui/DigishareDialog.tsx';
 
 import { Account, fetchAccounts } from '@/repository/accounts';
 import { fetchAllSubscriptions, Subscription } from '@/repository/subscriptions';
@@ -42,6 +43,7 @@ export default function App() {
   const [apiReady, setApiReady] = useState(false);
   const [apiMissing, setApiMissing] = useState(false);
   const [showCommandDialog, setShowCommandDialog] = useState(false);
+  const [showDigishareDialog, setShowDigishareDialog] = useState(false);
 
   useEffect(() => {
   loadApiConfigFromSupabase().then((ok) => {
@@ -127,6 +129,15 @@ export default function App() {
           title="Befehle anzeigen"
         >
           <Terminal className="w-5 h-5" />
+        </button>
+      </div>
+            <div className="absolute top-4 right-28 z-10">
+        <button
+          onClick={() => setShowDigishareDialog(true)}
+          className="h-[42px] aspect-square bg-blue-300 rounded-md flex items-center justify-center hover:bg-blue-400 transition"
+          title="Digishare Aktionen"
+        >
+          <img src="/digishare_icon.svg" alt="D" className="w-5 h-5" />
         </button>
       </div>
 
@@ -285,6 +296,7 @@ export default function App() {
       {apiReady && (
   <CommandDialog open={showCommandDialog} onOpenChange={() => setShowCommandDialog(false)} />
 )}
+      <DigishareDialog open={showDigishareDialog} onClose={() => setShowDigishareDialog(false)} />
       </div>
   );
 }
