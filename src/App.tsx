@@ -137,7 +137,7 @@ export default function App() {
           className="h-[42px] aspect-square bg-blue-300 rounded-md flex items-center justify-center hover:bg-blue-400 transition"
           title="Digishare Aktionen"
         >
-          <img src="/digishare_icon.svg" alt="D" className="w-5 h-5" />
+          <img src="/digishare.png" alt="D" className="w-5 h-5" />
         </button>
       </div>
 
