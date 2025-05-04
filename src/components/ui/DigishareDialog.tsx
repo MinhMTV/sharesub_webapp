@@ -3,6 +3,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { fetchMissingSubscriberInfos } from '@/repository/digishare';
 import { DigishareInfoTable } from './DigishareInfoTable';
+import {InactiveSubscriberList} from "@/components/ui/InactiveSubscriberList.tsx";
+import {InactiveSubscriberGroupedList} from "@/components/ui/InactiveSubscriberGroupedList.tsx";
 
 interface DigishareDialogProps {
   open: boolean;
@@ -28,7 +30,17 @@ export function DigishareDialog({ open, onClose }: DigishareDialogProps) {
           <TabsList>
             <TabsTrigger value="missing">Fehlende Infos</TabsTrigger>
             <TabsTrigger value="add">Infos hinzufügen</TabsTrigger>
+            <TabsTrigger value="inactive">Inaktive Nutzer</TabsTrigger>
+            <TabsTrigger value="inactive-grouped">Inaktive (Gruppiert)</TabsTrigger>
           </TabsList>
+
+          <TabsContent value="inactive">
+            <InactiveSubscriberList />
+          </TabsContent>
+
+          <TabsContent value="inactive-grouped">
+            <InactiveSubscriberGroupedList />
+          </TabsContent>
 
           <TabsContent value="missing">
             <div className="h-[70vh] w-full overflow-y-auto border p-2 rounded-md text-sm space-y-1">
